@@ -52,6 +52,8 @@ abstract final class AppStrings {
   // Shared section headings used on every demo screen
   // ---------------------------------------------------------------------
 
+  static const String whatItDemonstrates = 'What It Demonstrates';
+  static const String example = 'Example';
   static const String howItWorks = 'How It Works';
   static const String keyClasses = 'Key Classes';
   static const String whenToUse = 'When To Use';

@@ -14,6 +14,22 @@ class AnimatedContainerDemoScreen extends StatelessWidget {
   /// Creates the AnimatedContainer demo screen.
   const AnimatedContainerDemoScreen({super.key});
 
+  /// Compact conceptual snippet shown under 'How It Works'.
+  static const String _codeExample =
+      '// Swap the target values; the widget does the rest.\n'
+      'setState(() => _expanded = !_expanded);\n'
+      '\n'
+      'AnimatedContainer(\n'
+      '  duration: const Duration(milliseconds: 650), // how long\n'
+      '  curve: Curves.easeInOutCubic,                // how it eases\n'
+      '  width:   _expanded ? 212.0 : 120.0,\n'
+      '  height:  _expanded ? 212.0 : 120.0,\n'
+      '  padding: EdgeInsets.all(_expanded ? 28 : 14),\n'
+      '  decoration: BoxDecoration(\n'
+      '    borderRadius: BorderRadius.circular(_expanded ? 36 : 12),\n'
+      '  ),\n'
+      ')';
+
   @override
   Widget build(BuildContext context) {
     return const DemoScreenShell(
@@ -25,42 +41,56 @@ class AnimatedContainerDemoScreen extends StatelessWidget {
             'configuration changes, Flutter smoothly tweens every animatable '
             'property — no AnimationController required.',
         demo: AnimatedContainerDemo(),
+        demonstrates: 'Implicit Animation',
+        codeExample: _codeExample,
         howItWorks: [
-          'Swap state values: call setState() with a new width, height, '
-              'colour, borderRadius or padding on an AnimatedContainer.',
-          'Flutter compares the old and new values and animates each '
-              'animatable property between them.',
-          'Set duration and curve to control speed and easing; easeInOut is '
-              'the default over 200 ms.',
-          'When the values return to their previous state, the animation '
-              'runs in reverse automatically.',
+          'AnimatedContainer automatically interpolates between the old and '
+              'new values of every supported property when it is rebuilt with '
+              'different values.',
+          'setState() is what triggers that rebuild: it swaps the target '
+              'values, and the widget compares them against its previous '
+              'configuration.',
+          'duration sets how long the interpolation takes. Changing values '
+              'mid-flight retargets the animation smoothly from its current '
+              'position.',
+          'curve shapes the pacing of the motion — Curves.easeInOutCubic here '
+              '— so it accelerates and settles instead of moving linearly.',
         ],
         keyClasses: [
           (
             name: 'AnimatedContainer',
             detail:
-                'A Container that animates changes to decoration, size, '
-                'padding and border whenever it is rebuilt.',
+                'A Container that animates changes to size, decoration, '
+                'padding, alignment and margin when rebuilt.',
           ),
           (
-            name: 'ImplicitlyAnimatedWidget',
+            name: 'StatefulWidget',
             detail:
-                'Base class that owns a single AnimationController and '
-                'drives every implicit animation widget.',
+                'Holds the mutable state (the expanded flag) that the '
+                'animation reacts to.',
           ),
           (
-            name: 'CurvedAnimation',
+            name: 'setState',
             detail:
-                'Wraps the tween with an easing curve such as '
-                'Curves.easeInOut.',
+                'Marks the state dirty and triggers the rebuild that hands '
+                'AnimatedContainer its new target values.',
+          ),
+          (
+            name: 'Duration',
+            detail:
+                'How long the interpolation between the old and new values '
+                'takes.',
+          ),
+          (
+            name: 'Curve',
+            detail:
+                'Shapes the pacing of the interpolation, for example '
+                'Curves.easeInOutCubic.',
           ),
         ],
         whenToUse: [
-          'Toggling styles, such as selected versus unselected button colours '
-              'and sizes.',
-          'Expandable cards, filters or settings that change size and '
-              'spacing.',
-          'Quick colour and size feedback for hover or focus on desktop.',
+          'Simple transitions where values change between discrete UI states '
+              'and manual frame-level animation control is unnecessary.',
         ],
       ),
     );

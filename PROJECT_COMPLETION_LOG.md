@@ -24,9 +24,16 @@ and `flutter test`.
 | 5 | `b47800d` | `feat: add navigation for five animation demos` | ✅ pushed |
 | 6 | `7c32376` | `docs: add animation showcase project foundation` | ✅ pushed |
 
-## Phase 2
+## Phase 2 — AnimatedContainer + Explicit AnimationController/Tween
 
-_Not started — awaiting prompt._
+| Step | Commit SHA | Message | Status |
+|------|-----------|---------|--------|
+| 1 | `933c580` | `feat: implement AnimatedContainer transition demo` | ✅ pushed |
+| 2 | _pending_ | `docs: explain AnimatedContainer animation concepts` | pending |
+| 3 | _pending_ | `feat: implement AnimationController and Tween rotation` | pending |
+| 4 | _pending_ | `feat: add interactive rotation animation controls` | pending |
+| 5 | _pending_ | `docs: explain explicit Flutter animation workflow` | pending |
+| 6 | _pending_ | `test: verify implicit and explicit animation demos` | pending |
 
 ## Phase 3
 
