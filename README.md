@@ -68,7 +68,9 @@ lib/
     ├── demo_descriptor.dart
     ├── demo_lesson_view.dart
     ├── demo_placeholder.dart
-    └── demo_screen_shell.dart
+    ├── demo_screen_shell.dart
+    ├── motion_orb.dart            # Orbit-themed hero animation object
+    └── route_transitions.dart     # Custom slide + fade route builder
 ```
 
 ### Design system
@@ -134,11 +136,29 @@ and tablets.
   return-and-replay all covered
 - ✅ `flutter analyze` passes clean; `flutter test` passes (7 tests)
 
-### Phase 3+ — Pending
+### Phase 3 — Hero + Custom Slide/Fade Route: ✅ Complete
 
-Not started. Later phases implement the remaining animations (hero, staggered,
-custom route) and the final requirements. This document does not claim those
-are complete.
+- ✅ Interactive **Hero** source + destination demo — a shared motion orb that
+  flies between routes via matching Hero tags
+- ✅ Hero destination screen with arrival badge and a clear back link
+- ✅ Full educational content for shared-element animation (what it is, tag
+  matching, the flight lifecycle, key classes, when to use, code example,
+  conceptual flow)
+- ✅ Custom **Slide + Fade** route built with `PageRouteBuilder` — slides in
+  from the right with `easeOutCubic` while fading to full opacity
+- ✅ Custom destination screen ("Arrived via Slide + Fade") with slide/fade
+  preview and replayable launch
+- ✅ Full educational content for custom route transitions (8 key classes,
+  flow diagram, code example, when to use)
+- ✅ Phase 3 tests pass — Hero forward/reverse + tag uniqueness + rapid
+  navigation, custom-route mid-flight slide & fade assertions, and a
+  regression sweep of all prior demos
+- ✅ `flutter analyze` passes clean; `flutter test` passes (11 tests)
+
+### Phase 4 and Phase 5 — Pending
+
+Not started. Awaiting the next prompt. This document does not claim those are
+complete.
 
 ---
 

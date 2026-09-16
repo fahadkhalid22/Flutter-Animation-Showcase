@@ -35,9 +35,17 @@ and `flutter test`.
 | 5 | `d5c186c` | `docs: explain explicit Flutter animation workflow` | ✅ pushed |
 | 6 | `2c3439c` | `test: verify implicit and explicit animation demos` | ✅ pushed |
 
-## Phase 3
+## Phase 3 — Hero + Custom Slide/Fade Route
 
-_Not started — awaiting prompt._
+| Step | Commit SHA | Message | Status |
+|------|-----------|---------|--------|
+| 1 | `4102d67` | `feat: build Hero animation source interface` | ✅ pushed |
+| 2 | `5422090` | `feat: implement Hero shared-element transition` | ✅ pushed |
+| 3 | `8800e71` | `docs: explain Hero animation lifecycle` | ✅ pushed |
+| 4 | `ba4d109` | `feat: implement slide and fade PageRouteBuilder` | ✅ pushed |
+| 5 | `604befb` | `feat: polish custom route transition experience` | ✅ pushed |
+| 6 | `b60aa3c` | `docs: explain custom Flutter route animations` | ✅ pushed |
+| 7 | `ae36faf` | `test: verify Hero and custom route animations` | ✅ pushed |
 
 ## Phase 4
 

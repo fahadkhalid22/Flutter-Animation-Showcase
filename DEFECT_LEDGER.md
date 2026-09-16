@@ -22,6 +22,21 @@ _None._
 
 ## Resolved defects
 
+### DEF-002 — Horizontal flow diagram pill overflowed on the custom-route screen
+
+- **Phase / step:** Phase 3, Step 6 (custom-route educational content).
+- **Summary:** The `FlowDiagram` rendered each step as a pill inside a
+  horizontal `Wrap`. On a 400 px phone surface the "SlideTransition +
+  FadeTransition" pill (a single wrap child) was wider than the line and
+  overflowed by 76 px, failing the "every demo card opens its screen" test.
+- **Fix:** Rebuilt `FlowDiagram` as a vertical pipeline — full-width numbered
+  pills joined by downward arrows. Long steps wrap naturally instead of
+  overflowing, and the layout matches the assignment's conceptual flow
+  (`Source Hero ↓ Navigator.push ↓ ...`).
+- **Verified:** `flutter analyze` clean; `flutter test` (7 tests, both
+  phone-sized surfaces) passes.
+- **Status:** RESOLVED (commit `b60aa3c`).
+
 ### DEF-001 — Demo screen header row overflowed on narrow surfaces
 
 - **Phase / step:** Phase 1, Step 5 (demo screen shells).
