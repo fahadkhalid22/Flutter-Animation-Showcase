@@ -251,8 +251,6 @@ class _TechniqueRow extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.md),
-          _LabeledLine(label: 'Type', value: entry.type, accent: entry.accent),
-          const SizedBox(height: AppSpacing.sm),
           _LabeledLine(
             label: 'Control',
             value: entry.control,

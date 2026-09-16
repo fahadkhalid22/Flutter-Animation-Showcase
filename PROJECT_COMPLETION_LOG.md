@@ -49,7 +49,16 @@ and `flutter test`.
 
 ## Phase 4
 
-_Not started — awaiting prompt._
+| Step | Commit SHA | Message | Status |
+|------|-----------|---------|--------|
+| 1 | `cbf9e2b` | `feat: add four-item staggered animation controller` | ✅ pushed |
+| 2 | `d38df4b` | `feat: implement staggered four-item animation sequence` | ✅ pushed |
+| 3 | `4df7e7a` | `feat: add controls for staggered animation sequence` | ✅ pushed |
+| 4 | `529a730` | `docs: explain staggered animation timing` | ✅ pushed |
+| 5 | `80acee1` | `feat: integrate all five animation demonstrations` | ✅ pushed |
+| 6 | `a08fecf` | `feat: add Flutter animation technique comparison` | ✅ pushed |
+| 7 | `296e56b` | `fix: improve animation usability and motion accessibility` | ✅ pushed |
+| 8 | `<pending-step-8>` | `test: verify complete animation showcase flows` | awaiting push |
 
 ## Phase 5
 
