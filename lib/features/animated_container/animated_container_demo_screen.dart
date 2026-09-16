@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../shared/demo_lesson_view.dart';
-import '../../shared/demo_placeholder.dart';
 import '../../shared/demo_screen_shell.dart';
+import 'animated_container_demo.dart';
 
 /// Demo 01 — AnimatedContainer.
 ///
@@ -24,7 +24,7 @@ class AnimatedContainerDemoScreen extends StatelessWidget {
             'AnimatedContainer is an implicit animation. When its '
             'configuration changes, Flutter smoothly tweens every animatable '
             'property — no AnimationController required.',
-        demo: DemoPlaceholder(),
+        demo: AnimatedContainerDemo(),
         howItWorks: [
           'Swap state values: call setState() with a new width, height, '
               'colour, borderRadius or padding on an AnimatedContainer.',

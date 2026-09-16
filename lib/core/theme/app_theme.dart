@@ -69,6 +69,19 @@ abstract final class AppTheme {
         ),
       ),
       iconTheme: const IconThemeData(color: AppColors.textPrimary),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.textPrimary,
+          side: const BorderSide(color: Color(0xFF2E3355)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.2,
+          ),
+        ),
+      ),
       dividerTheme: const DividerThemeData(
         color: Color(0xFF242947),
         thickness: 1,
