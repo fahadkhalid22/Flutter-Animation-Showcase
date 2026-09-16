@@ -30,7 +30,9 @@ class SectionTitle extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Text(text, style: Theme.of(context).textTheme.titleMedium),
+        Expanded(
+          child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+        ),
       ],
     );
   }

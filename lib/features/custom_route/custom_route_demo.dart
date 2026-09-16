@@ -62,23 +62,29 @@ class _TransitionPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Ghost copy, fully faded — where the page starts.
-        _PreviewPanel(opacity: 0.18, offset: -26),
-        const SizedBox(width: 6),
-        // Mid-flight copy, partially faded and pushed right.
-        _PreviewPanel(opacity: 0.45, offset: -12),
-        const SizedBox(width: 6),
-        // Landed copy, opaque and at rest.
-        const _PreviewPanel(opacity: 1.0, offset: 0),
-        const SizedBox(width: AppSpacing.md),
-        Icon(
-          Icons.arrow_forward_rounded,
-          color: AppColors.accent.withValues(alpha: 0.9),
-        ),
-      ],
+    // The three panels plus gaps exceed the tightest phone content width
+    // (~320 px). Scale the whole preview down to fit instead of letting the
+    // Row overflow; wider screens keep the natural size.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Ghost copy, fully faded — where the page starts.
+          _PreviewPanel(opacity: 0.18, offset: -26),
+          const SizedBox(width: 6),
+          // Mid-flight copy, partially faded and pushed right.
+          _PreviewPanel(opacity: 0.45, offset: -12),
+          const SizedBox(width: 6),
+          // Landed copy, opaque and at rest.
+          const _PreviewPanel(opacity: 1.0, offset: 0),
+          const SizedBox(width: AppSpacing.md),
+          Icon(
+            Icons.arrow_forward_rounded,
+            color: AppColors.accent.withValues(alpha: 0.9),
+          ),
+        ],
+      ),
     );
   }
 }
