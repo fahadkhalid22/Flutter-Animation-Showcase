@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../shared/demo_lesson_view.dart';
-import '../../shared/demo_placeholder.dart';
 import '../../shared/demo_screen_shell.dart';
+import 'custom_route_demo.dart';
 
 /// Demo 05 — Custom Slide + Fade Route.
 ///
@@ -24,7 +24,7 @@ class CustomRouteDemoScreen extends StatelessWidget {
             'PageRouteBuilder lets you design your own route transition. '
             'Combined with SlideTransition and FadeTransition, you get a '
             'polished slide-in that fades in at the same time.',
-        demo: DemoPlaceholder(),
+        demo: CustomRouteDemo(),
         howItWorks: [
           'Return a PageRouteBuilder whenever the route is requested; give it '
               'buildPage and transitionsBuilder.',
