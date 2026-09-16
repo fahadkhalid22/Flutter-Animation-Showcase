@@ -18,9 +18,6 @@ abstract final class AppStrings {
   /// Badge shown in the dashboard header.
   static const String demosBadge = '5 Interactive Demos';
 
-  /// Placeholder text for a not-yet-built interactive area.
-  static const String demoComingSoon = 'Interactive demo coming soon';
-
   // ---------------------------------------------------------------------
   // Demo card copy (title / category / description)
   // ---------------------------------------------------------------------
