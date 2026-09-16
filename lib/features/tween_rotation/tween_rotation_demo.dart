@@ -32,7 +32,10 @@ class _TweenRotationDemoState extends State<TweenRotationDemo>
   late final Animation<double> _rotationAnimation;
 
   /// Whether the dial keeps looping until the user stops it.
-  bool _isRepeating = true;
+  ///
+  /// Defaults to on, but if the platform has reduced motion enabled the demo
+  /// starts idle and every rotation must be requested with the controls.
+  late bool _isRepeating;
 
   @override
   void initState() {
@@ -41,8 +44,15 @@ class _TweenRotationDemoState extends State<TweenRotationDemo>
     _rotationAnimation = Tween<double>(begin: 0, end: 2 * math.pi).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
     );
-    // Rotate continuously until the controls are used.
-    _controller.repeat();
+    _isRepeating = !WidgetsBinding
+        .instance
+        .platformDispatcher
+        .accessibilityFeatures
+        .disableAnimations;
+    if (_isRepeating) {
+      // Rotate continuously until the controls are used.
+      _controller.repeat();
+    }
   }
 
   @override
@@ -172,36 +182,41 @@ class _TweenRotationDemoState extends State<TweenRotationDemo>
     return AnimatedBuilder(
       animation: _controller,
       builder: (BuildContext context, Widget? child) {
-        return Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md,
-            vertical: AppSpacing.sm,
-          ),
-          decoration: BoxDecoration(
-            color: _statusColor.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(AppRadius.md),
-            border: Border.all(color: _statusColor.withValues(alpha: 0.35)),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _statusColor,
+        return Semantics(
+          // Announce control changes to screen readers without requiring a
+          // re-focus each time the status flips.
+          liveRegion: true,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
+            decoration: BoxDecoration(
+              color: _statusColor.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(AppRadius.md),
+              border: Border.all(color: _statusColor.withValues(alpha: 0.35)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _statusColor,
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Text(
-                _statusLabel,
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: _statusColor,
-                  fontWeight: FontWeight.w600,
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  _statusLabel,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: _statusColor,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

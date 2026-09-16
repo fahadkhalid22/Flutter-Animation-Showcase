@@ -85,8 +85,18 @@ class _StaggeredAnimationDemoState extends State<StaggeredAnimationDemo>
           ),
         ),
     ];
-    // Play the sequence once on entry so the stagger is the first thing seen.
-    _controller.forward();
+    // Play the sequence once on entry so the stagger is the first thing
+    // seen — unless the platform has reduced motion enabled, in which case
+    // show the finished cascade instead of launching motion unprompted.
+    if (WidgetsBinding
+        .instance
+        .platformDispatcher
+        .accessibilityFeatures
+        .disableAnimations) {
+      _controller.value = 1;
+    } else {
+      _controller.forward();
+    }
   }
 
   @override
