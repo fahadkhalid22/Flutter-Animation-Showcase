@@ -53,6 +53,7 @@ lib/
 │   │   └── app_theme.dart        # Dark, motion-inspired ThemeData
 │   └── widgets/                  # Reusable educational widgets
 │       ├── animation_showcase_card.dart
+│       ├── code_example_card.dart
 │       ├── showcase_header.dart
 │       ├── concept_card.dart
 │       └── section_title.dart
@@ -111,14 +112,33 @@ and tablets.
 - ✅ `flutter test` passes
 - ✅ README, completion log and defect ledger exist
 
-> The interactive animation areas on each demo screen are currently
-> professional placeholders (`DemoPlaceholder`). The five full animations are
-> implemented in a later phase and will replace these stages.
+> The remaining interactive animation areas (hero, staggered sequence and
+> custom route) use professional placeholders (`DemoPlaceholder`). The first
+> two animations — AnimatedContainer and Tween Rotation — are implemented in
+> Phase 2 and are live in their demo screens.
 
-### Phase 2+ — Pending
+### Phase 2 — AnimatedContainer + Explicit AnimationController/Tween: ✅ Complete
 
-Not started. Later phases implement the five interactive animations and the
-final requirements. This document does not claim those are complete.
+- ✅ Interactive implicit `AnimatedContainer` demo — Animate / Reset / Replay,
+  animating size, gradient, corner radius, padding and alignment
+- ✅ Full educational content for the implicit technique
+  (What It Demonstrates / How It Works / Key Classes / When To Use / example)
+- ✅ Explicit rotation demo — `AnimationController` + `Tween<double>` driving a
+  `Transform.rotate`, with a polished gradient motion dial
+- ✅ Interactive controls — Play / Pause / Reverse / Reset + repeat-mode toggle
+  and a live Idle / Playing / Paused / Reversing status indicator
+- ✅ Explicit-animation explanation — roles, `vsync`, conceptual flow diagram
+  and an Implicit-vs-Explicit comparison table
+- ✅ Phase 2 test + regression pass: implicit animate/reset/replay, rapid
+  repeat taps, rotation play/pause/reverse/reset, leave-while-playing and
+  return-and-replay all covered
+- ✅ `flutter analyze` passes clean; `flutter test` passes (7 tests)
+
+### Phase 3+ — Pending
+
+Not started. Later phases implement the remaining animations (hero, staggered,
+custom route) and the final requirements. This document does not claim those
+are complete.
 
 ---
 
