@@ -18,7 +18,7 @@ and `flutter test`.
 | Step | Commit SHA | Message | Status |
 |------|-----------|---------|--------|
 | 1 | `d12ddb5` | `chore: initialize Flutter animation showcase` | ✅ pushed |
-| 2 | _pending_ | `feat: add application architecture and routing` | pending |
+| 2 | `1492c2c` | `feat: add application architecture and routing` | ✅ pushed |
 | 3 | _pending_ | `feat: add animation showcase design system` | pending |
 | 4 | _pending_ | `feat: build animation showcase dashboard` | pending |
 | 5 | _pending_ | `feat: add navigation for five animation demos` | pending |
