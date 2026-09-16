@@ -21,7 +21,7 @@ and `flutter test`.
 | 2 | `1492c2c` | `feat: add application architecture and routing` | ✅ pushed |
 | 3 | `60e5cf4` | `feat: add animation showcase design system` | ✅ pushed |
 | 4 | `25ad5b6` | `feat: build animation showcase dashboard` | ✅ pushed |
-| 5 | _pending_ | `feat: add navigation for five animation demos` | pending |
+| 5 | `b47800d` | `feat: add navigation for five animation demos` | ✅ pushed |
 | 6 | _pending_ | `docs: add animation showcase project foundation` | pending |
 
 ## Phase 2

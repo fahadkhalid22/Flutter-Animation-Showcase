@@ -22,4 +22,14 @@ _None._
 
 ## Resolved defects
 
-_None yet._
+### DEF-001 — Demo screen header row overflowed on narrow surfaces
+
+- **Phase / step:** Phase 1, Step 5 (demo screen shells).
+- **Summary:** On a 400 px wide phone surface, the demo screen header
+  (`Row` in `DemoScreenShell`) overflowed by ~0.8 px because the category
+  badge could not shrink and the title/badge consumed the full width.
+- **Fix:** Wrapped the category badge in a `Flexible` and added
+  `maxLines: 1` + `TextOverflow.ellipsis` so the badge adapts to any width.
+- **Verified:** `flutter analyze` clean; `flutter test` (all 5 routes,
+  phone-sized and default surfaces) passes.
+- **Status:** RESOLVED (commit `b47800d`).
