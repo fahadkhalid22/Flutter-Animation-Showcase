@@ -13,6 +13,13 @@ void _usePhoneSurface(WidgetTester tester) {
   addTearDown(tester.view.reset);
 }
 
+/// Completes a route push/pop without waiting for animations that never
+/// settle — the rotation demo repeats forever by design.
+Future<void> _pumpRouteTransition(WidgetTester tester) async {
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 500));
+}
+
 void main() {
   testWidgets('dashboard shows header and all five demo cards', (tester) async {
     _usePhoneSurface(tester);
@@ -43,7 +50,7 @@ void main() {
 
     for (final DemoDescriptor demo in kAnimationDemos) {
       await tester.tap(find.text(demo.title));
-      await tester.pumpAndSettle();
+      await _pumpRouteTransition(tester);
 
       // The demo screen shell shows the category badge (and intro text).
       expect(
@@ -68,7 +75,7 @@ void main() {
       );
 
       await tester.tap(find.byTooltip('Back'));
-      await tester.pumpAndSettle();
+      await _pumpRouteTransition(tester);
 
       expect(
         find.byType(ShowcaseHomeScreen),

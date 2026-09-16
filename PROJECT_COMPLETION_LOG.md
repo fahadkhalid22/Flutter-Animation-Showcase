@@ -29,7 +29,7 @@ and `flutter test`.
 | Step | Commit SHA | Message | Status |
 |------|-----------|---------|--------|
 | 1 | `933c580` | `feat: implement AnimatedContainer transition demo` | ✅ pushed |
-| 2 | _pending_ | `docs: explain AnimatedContainer animation concepts` | pending |
+| 2 | `ce6fb0f` | `docs: explain AnimatedContainer animation concepts` | ✅ pushed |
 | 3 | _pending_ | `feat: implement AnimationController and Tween rotation` | pending |
 | 4 | _pending_ | `feat: add interactive rotation animation controls` | pending |
 | 5 | _pending_ | `docs: explain explicit Flutter animation workflow` | pending |

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../shared/demo_lesson_view.dart';
-import '../../shared/demo_placeholder.dart';
 import '../../shared/demo_screen_shell.dart';
+import 'tween_rotation_demo.dart';
 
 /// Demo 03 — Tween Rotation.
 ///
@@ -23,7 +23,7 @@ class TweenRotationDemoScreen extends StatelessWidget {
             'Explicit animation: you drive the timeline yourself. An '
             'AnimationController plus a Tween give precise control over '
             'rotation, timing and repetition.',
-        demo: DemoPlaceholder(),
+        demo: TweenRotationDemo(),
         howItWorks: [
           'Create an AnimationController with vsync (from '
               'SingleTickerProviderStateMixin) as the tick source.',
