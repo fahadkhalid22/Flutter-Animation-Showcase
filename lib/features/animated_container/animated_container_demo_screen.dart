@@ -56,6 +56,12 @@ class AnimatedContainerDemoScreen extends StatelessWidget {
           'curve shapes the pacing of the motion — Curves.easeInOutCubic here '
               '— so it accelerates and settles instead of moving linearly.',
         ],
+        flow: [
+          'setState swaps the target values',
+          'AnimatedContainer compares old vs new configuration',
+          'Duration + curve shape the automatic tween',
+          'Every animatable property interpolates',
+        ],
         keyClasses: [
           (
             name: 'AnimatedContainer',
@@ -91,6 +97,12 @@ class AnimatedContainerDemoScreen extends StatelessWidget {
         whenToUse: [
           'Simple transitions where values change between discrete UI states '
               'and manual frame-level animation control is unnecessary.',
+          'State toggles that should feel organic, such as expanding and '
+              'collapsing panels, cards or badges.',
+          'Colour, padding or alignment changes that need a smooth '
+              'interpolation without writing any controller code.',
+          'Prototyping, where one widget gives production-quality motion '
+              'for free before an explicit animation is wired up.',
         ],
       ),
     );
