@@ -55,7 +55,7 @@ class DemoScreenShell extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    _CategoryBadge(label: category),
+                    Flexible(child: _CategoryBadge(label: category)),
                   ],
                 ),
               ),
@@ -90,6 +90,8 @@ class _CategoryBadge extends StatelessWidget {
       ),
       child: Text(
         label,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
           color: scheme.primary,
           fontSize: 12,

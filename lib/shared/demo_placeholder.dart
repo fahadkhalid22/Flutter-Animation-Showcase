@@ -1,54 +1,61 @@
 import 'package:flutter/material.dart';
 
-/// Professional stand-in for an interactive demo area.
+import '../core/constants/app_colors.dart';
+import '../core/constants/app_radius.dart';
+import '../core/constants/app_spacing.dart';
+
+/// Stage for the interactive demo area of a Phase 1 demo screen.
 ///
-/// Used by every Phase 1 demo screen while the real animated demo for each
-/// technique is still being built. Replaced by the actual demos in later
-/// phases.
+/// Stands in for the real animated example, which is built in a later
+/// phase. The box shares the proportions of the future demo surface so
+/// the layout does not shift once the animation lands.
 class DemoPlaceholder extends StatelessWidget {
   /// Creates a [DemoPlaceholder].
-  const DemoPlaceholder({super.key, required this.description});
+  const DemoPlaceholder({super.key, this.height = 220});
 
-  /// One-line description of the demo shown above the stand-in area.
-  final String description;
+  /// Height of the demo stage.
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(description, style: theme.textTheme.bodyMedium),
-        const SizedBox(height: 24),
-        Center(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 32),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHigh,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.motion_photos_on,
-                  size: 56,
-                  color: theme.colorScheme.primary,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  'Interactive demo\ncoming in Phase 2',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodySmall!.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
+    return Container(
+      width: double.infinity,
+      height: height,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [AppColors.surfaceRaised, AppColors.surface],
+        ),
+        borderRadius: BorderRadius.circular(AppRadius.xl),
+        border: Border.all(color: const Color(0xFF242947)),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.motion_photos_on,
+            size: 44,
+            color: AppColors.secondary,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Text(
+            'Demo area',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: AppColors.textPrimary,
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            'Interactive animation comes in Phase 2',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -20,7 +20,7 @@ and `flutter test`.
 | 1 | `d12ddb5` | `chore: initialize Flutter animation showcase` | ✅ pushed |
 | 2 | `1492c2c` | `feat: add application architecture and routing` | ✅ pushed |
 | 3 | `60e5cf4` | `feat: add animation showcase design system` | ✅ pushed |
-| 4 | _pending_ | `feat: build animation showcase dashboard` | pending |
+| 4 | `25ad5b6` | `feat: build animation showcase dashboard` | ✅ pushed |
 | 5 | _pending_ | `feat: add navigation for five animation demos` | pending |
 | 6 | _pending_ | `docs: add animation showcase project foundation` | pending |
 
