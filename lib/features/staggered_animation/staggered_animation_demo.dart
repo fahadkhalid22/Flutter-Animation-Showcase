@@ -130,7 +130,8 @@ class _StaggeredAnimationDemoState extends State<StaggeredAnimationDemo>
               in _itemAnimations.indexed) ...[
             if (i > 0) const SizedBox(height: AppSpacing.sm),
             Expanded(
-              child: _wrapItem(
+              child: _composeItem(
+                i,
                 animation,
                 _StaggeredItemCard(
                   number: i + 1,
@@ -147,23 +148,62 @@ class _StaggeredAnimationDemoState extends State<StaggeredAnimationDemo>
     );
   }
 
-  /// Applies the fade + slide + scale composition an item's interval drives.
-  Widget _wrapItem(Animation<double> progress, Widget child) {
-    final Animation<Offset> slide = Tween<Offset>(
-      begin: const Offset(0, 0.6),
-      end: Offset.zero,
-    ).animate(progress);
-    final Animation<double> scale = Tween<double>(
-      begin: 0.92,
-      end: 1,
-    ).animate(progress);
-    return FadeTransition(
-      opacity: progress,
-      child: SlideTransition(
-        position: slide,
-        child: ScaleTransition(scale: scale, child: child),
-      ),
-    );
+  /// Composes the fade / slide / scale mix each item uses to enter.
+  ///
+  /// Every item shares the same [progress] animation for its interval, but
+  /// each one moves differently so the staggered cascade is easy to read:
+  /// Item 1 rises, Item 2 slides in from the left, Item 3 grows, Item 4
+  /// slides from the right with a bounce.
+  Widget _composeItem(int index, Animation<double> progress, Widget child) {
+    switch (index) {
+      case 0:
+        // Controller — rises into place while fading in.
+        final Animation<Offset> rise = Tween<Offset>(
+          begin: const Offset(0, 0.6),
+          end: Offset.zero,
+        ).animate(progress);
+        return FadeTransition(
+          opacity: progress,
+          child: SlideTransition(position: rise, child: child),
+        );
+      case 1:
+        // Interval — slides in from the left edge of the stage.
+        final Animation<Offset> fromLeft = Tween<Offset>(
+          begin: const Offset(-0.7, 0),
+          end: Offset.zero,
+        ).animate(progress);
+        return FadeTransition(
+          opacity: progress,
+          child: SlideTransition(position: fromLeft, child: child),
+        );
+      case 2:
+        // Curves — grows from small to full size while fading in.
+        final Animation<double> grow = Tween<double>(
+          begin: 0.8,
+          end: 1,
+        ).animate(progress);
+        return FadeTransition(
+          opacity: progress,
+          child: ScaleTransition(scale: grow, child: child),
+        );
+      default:
+        // Sequence — slides from the right with a subtle pop.
+        final Animation<Offset> fromRight = Tween<Offset>(
+          begin: const Offset(0.7, 0),
+          end: Offset.zero,
+        ).animate(progress);
+        final Animation<double> pop = Tween<double>(
+          begin: 0.85,
+          end: 1,
+        ).animate(progress);
+        return FadeTransition(
+          opacity: progress,
+          child: SlideTransition(
+            position: fromRight,
+            child: ScaleTransition(scale: pop, child: child),
+          ),
+        );
+    }
   }
 }
 
