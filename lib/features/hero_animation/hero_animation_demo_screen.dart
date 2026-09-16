@@ -13,6 +13,26 @@ class HeroAnimationDemoScreen extends StatelessWidget {
   /// Creates the Hero animation demo screen.
   const HeroAnimationDemoScreen({super.key});
 
+  /// Compact conceptual code for the shared-element transition.
+  static const String _codeExample = '''
+// Source route — wrap the element in a Hero with a unique tag.
+Hero(
+  tag: 'product-image',
+  child: ProductThumbnail(),
+);
+
+// Go to the destination.
+Navigator.push(context, MaterialPageRoute(builder: (_) => DetailPage()));
+
+// Destination route — same tag, larger layout.
+Hero(
+  tag: 'product-image',
+  child: ProductImage(zoomed: true),
+);
+
+// Flutter pairs the two Heroes and flies from source to destination.
+''';
+
   @override
   Widget build(BuildContext context) {
     return const DemoScreenShell(
@@ -20,45 +40,65 @@ class HeroAnimationDemoScreen extends StatelessWidget {
       category: AppStrings.heroAnimationCategory,
       child: DemoLessonView(
         intro:
-            'Hero is a shared-element animation. Place a Hero widget with the '
-            'same tag on both the source and destination route, and Flutter '
-            'flies the element between the two screens during navigation.',
+            'Hero is a shared-element animation: place a Hero widget with the '
+            'same tag on both the source and the destination route, and '
+            'Flutter flies the element between the two screens during '
+            'navigation.',
         demo: HeroAnimationDemo(),
+        demonstrates: 'Shared Element Animation',
+        codeExample: _codeExample,
         howItWorks: [
           'Wrap the element you want to share (an avatar, card or image) in a '
-              'Hero on the source route.',
+              'Hero with a unique tag on the source route.',
           'Add a matching Hero with the same tag on the destination route so '
               'the framework can pair them.',
-          'Navigate with Navigator.push or pushNamed; during the transition '
-              'the source Hero morphs into the destination Hero.',
-          'The rest of the route animates normally while the shared element '
-              'interpolates position, size and shape.',
+          'Hero tags must be unique within the active route subtree — '
+              'exactly one Hero per tag on each screen.',
+          'Navigate with Navigator.push; during the overlay flight the source '
+              'Hero morphs into the destination Hero, interpolating position, '
+              'size and shape.',
+          'Popping the route runs the whole transition in reverse — the '
+              'element flies back to the source screen.',
+        ],
+        flow: [
+          'Source Hero',
+          'Navigator.push',
+          'Hero Flight',
+          'Destination Hero',
         ],
         keyClasses: [
           (
             name: 'Hero',
             detail:
-                'Renders a widget that "flies" between routes; matched by '
-                'its unique tag.',
+                'Renders a widget that "flies" between routes. It is matched '
+                'by its tag, which must be unique within the active route '
+                'subtree — one Hero per tag per screen.',
           ),
           (
-            name: 'HeroController',
+            name: 'Navigator',
             detail:
-                'Owned by the Navigator; finds Hero pairs with identical '
-                'tags and animates the flight.',
+                'Manages the route stack; during a push or pop it hosts the '
+                'overlay in which matched Heroes animate their flight.',
+          ),
+          (
+            name: 'Route',
+            detail:
+                'A single screen (page) on the stack. Each route owns its '
+                'Hero subtree, so the same tag may appear on two routes at '
+                'once — but only once per route.',
           ),
           (
             name: 'MaterialPageRoute',
             detail:
-                'The standard route type used to push the destination '
-                'screen for this demo.',
+                'The standard Material route used to push the destination '
+                'screen for this demo; its transition plays underneath the '
+                'Hero flight.',
           ),
         ],
         whenToUse: [
-          'Moving a product image from a list card to its detail screen.',
-          'Sharing a profile avatar from a list into a profile page.',
-          'Drill-down navigation where an element should feel continuous '
-              'between screens.',
+          'Product thumbnail in a list flying to its full-size product detail.',
+          'Profile avatar in a list expanding into the profile screen.',
+          'Gallery thumbnail morphing into a fullscreen image view.',
         ],
       ),
     );
