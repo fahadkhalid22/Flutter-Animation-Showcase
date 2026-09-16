@@ -118,7 +118,10 @@ class DemoLessonView extends StatelessWidget {
   }
 }
 
-/// Horizontal pipeline of numbered steps connected by arrows.
+/// Vertical pipeline of numbered steps connected by arrows.
+///
+/// Full-width pills are safe at any screen size — a long step wraps to a
+/// second line instead of overflowing horizontally.
 class FlowDiagram extends StatelessWidget {
   const FlowDiagram({super.key, required this.steps});
 
@@ -127,22 +130,25 @@ class FlowDiagram extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Wrap(
-      spacing: AppSpacing.xs,
-      runSpacing: AppSpacing.md,
-      crossAxisAlignment: WrapCrossAlignment.center,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (final (int i, String step) in steps.indexed) ...[
           if (i > 0)
-            const Icon(
-              Icons.arrow_forward_rounded,
-              size: 16,
-              color: AppColors.textSecondary,
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: AppSpacing.xs),
+              child: Center(
+                child: Icon(
+                  Icons.arrow_downward_rounded,
+                  size: 18,
+                  color: AppColors.accent,
+                ),
+              ),
             ),
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.md,
-              vertical: AppSpacing.sm,
+              vertical: AppSpacing.sm + 2,
             ),
             decoration: BoxDecoration(
               color: AppColors.surface,
@@ -152,21 +158,34 @@ class FlowDiagram extends StatelessWidget {
               ),
             ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  '${i + 1}',
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: AppColors.accent,
-                    fontWeight: FontWeight.w800,
+                Container(
+                  width: 22,
+                  height: 22,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.accent.withValues(alpha: 0.16),
+                    border: Border.all(
+                      color: AppColors.accent.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  child: Text(
+                    '${i + 1}',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: AppColors.accent,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-                const SizedBox(width: AppSpacing.sm),
-                Text(
-                  step,
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w600,
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Text(
+                    step,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
