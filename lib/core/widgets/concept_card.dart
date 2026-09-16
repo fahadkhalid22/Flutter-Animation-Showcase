@@ -99,7 +99,7 @@ class _Leading extends StatelessWidget {
         child: Text(
           '$index',
           style: const TextStyle(
-            color: AppColors.primary,
+            color: AppColors.chipLabel,
             fontSize: 12,
             fontWeight: FontWeight.w700,
           ),

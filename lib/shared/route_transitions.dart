@@ -5,10 +5,16 @@ import 'package:flutter/material.dart';
 /// Used for the custom-route demo. Pushing launches the transition and
 /// popping plays it in reverse, so the effect can be replayed by navigating
 /// back and launching again.
-Route<T> buildSlideFadeRoute<T>({required Widget page}) {
+///
+/// [duration] defaults to 600 ms but the caller should pass [Duration.zero]
+/// when the platform's reduced-motion preference is enabled.
+Route<T> buildSlideFadeRoute<T>({
+  required Widget page,
+  Duration duration = const Duration(milliseconds: 600),
+}) {
   return PageRouteBuilder<T>(
-    transitionDuration: const Duration(milliseconds: 600),
-    reverseTransitionDuration: const Duration(milliseconds: 600),
+    transitionDuration: duration,
+    reverseTransitionDuration: duration,
     pageBuilder: (
       BuildContext context,
       Animation<double> animation,

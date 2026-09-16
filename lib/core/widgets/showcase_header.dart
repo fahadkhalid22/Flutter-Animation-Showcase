@@ -27,8 +27,12 @@ class ShowcaseHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppRadius.sm),
             border: Border.all(color: AppColors.accent.withValues(alpha: 0.28)),
           ),
+          // A Flexible label lets the badge text wrap to a second line when
+          // system font scaling makes it wider than the phone, instead of
+          // overflowing the pill to the right.
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
                 Icons.play_circle_outline,
@@ -36,12 +40,15 @@ class ShowcaseHeader extends StatelessWidget {
                 color: AppColors.accent,
               ),
               const SizedBox(width: AppSpacing.sm - 2),
-              Text(
-                AppStrings.demosBadge,
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: AppColors.accent,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.4,
+              Flexible(
+                child: Text(
+                  AppStrings.demosBadge,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: AppColors.accent,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.4,
+                  ),
                 ),
               ),
             ],

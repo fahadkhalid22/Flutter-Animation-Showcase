@@ -25,70 +25,76 @@ class AnimationShowcaseCard extends StatelessWidget {
     return Material(
       color: AppColors.surface,
       borderRadius: BorderRadius.circular(AppRadius.lg),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-        child: Container(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppRadius.lg),
-            border: Border.all(color: const Color(0xFF242947)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _IconTile(accent: demo.accent, icon: demo.icon),
-              const SizedBox(width: AppSpacing.lg),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          demo.number.toString().padLeft(2, '0'),
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            color: demo.accent,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.5,
+      // Declare the card a button so screen readers announce it as tappable
+      // and merge the card's text into a single label.
+      child: Semantics(
+        button: true,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          child: Container(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppRadius.lg),
+              border: Border.all(color: const Color(0xFF242947)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _IconTile(accent: demo.accent, icon: demo.icon),
+                const SizedBox(width: AppSpacing.lg),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // A Wrap lets the number, category and status badge reflow onto
+                      // extra lines when system font scaling outgrows the card
+                      // column, instead of clipping the category or badge.
+                      Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: AppSpacing.sm,
+                        runSpacing: AppSpacing.xs,
+                        children: [
+                          Text(
+                            demo.number.toString().padLeft(2, '0'),
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: demo.accent,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: AppSpacing.sm),
-                        Expanded(
-                          child: Text(
+                          Text(
                             demo.category,
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: AppColors.textSecondary,
                               letterSpacing: 0.4,
                               fontSize: 12,
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const SizedBox(width: AppSpacing.sm),
-                        const _CompleteBadge(),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Text(demo.title, style: theme.textTheme.titleMedium),
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      demo.description,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.textSecondary,
-                        height: 1.4,
+                          const _CompleteBadge(),
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(demo.title, style: theme.textTheme.titleMedium),
+                      const SizedBox(height: AppSpacing.xs),
+                      Text(
+                        demo.description,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: AppColors.textSecondary,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              const Icon(
-                Icons.arrow_forward_ios,
-                size: 14,
-                color: AppColors.secondary,
-              ),
-            ],
+                const SizedBox(width: AppSpacing.sm),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                  color: AppColors.secondary,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -143,16 +149,22 @@ class _CompleteBadge extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.check_circle, size: 13, color: AppColors.accent),
           const SizedBox(width: 4),
-          Text(
-            'Complete',
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: AppColors.accent,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.2,
+          // Flexible keeps the pill's label visible when large system fonts
+          // make it wider than the card column: it wraps instead of clipping.
+          Flexible(
+            child: Text(
+              'Complete',
+              textAlign: TextAlign.center,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: AppColors.accent,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.2,
+              ),
             ),
           ),
         ],

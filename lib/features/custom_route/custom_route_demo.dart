@@ -16,8 +16,16 @@ class CustomRouteDemo extends StatelessWidget {
   const CustomRouteDemo({super.key});
 
   void _launch(BuildContext context) {
+    // Respect the "reduce motion" system preference: jump to the destination
+    // instantly instead of playing the 600 ms slide-and-fade.
+    final Duration duration = MediaQuery.disableAnimationsOf(context)
+        ? Duration.zero
+        : const Duration(milliseconds: 600);
     Navigator.of(context).push(
-      buildSlideFadeRoute<void>(page: const CustomRouteDestinationScreen()),
+      buildSlideFadeRoute<void>(
+        page: const CustomRouteDestinationScreen(),
+        duration: duration,
+      ),
     );
   }
 

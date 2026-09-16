@@ -51,7 +51,7 @@ abstract final class AppTheme {
         backgroundColor: AppColors.primary.withValues(alpha: 0.14),
         side: BorderSide(color: AppColors.primary.withValues(alpha: 0.35)),
         labelStyle: const TextStyle(
-          color: AppColors.primary,
+          color: AppColors.chipLabel,
           fontWeight: FontWeight.w600,
         ),
       ),

@@ -33,6 +33,11 @@ abstract final class AppColors {
   /// Secondary text for descriptions and captions.
   static const Color textSecondary = Color(0xFFA7ADC7);
 
+  /// High-contrast variant of [primary] used for small text (chip labels,
+  /// index badges) that sits on a semi-transparent tinted background.
+  /// Passes 4.5:1 against the effective tinted chip bg.
+  static const Color chipLabel = Color(0xFFC4B8FF);
+
   /// Diamond-shaped gradient used behind the dashboard header.
   static const LinearGradient backgroundGradient = LinearGradient(
     begin: Alignment.topCenter,
