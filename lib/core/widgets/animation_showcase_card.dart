@@ -65,6 +65,8 @@ class AnimationShowcaseCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                        const SizedBox(width: AppSpacing.sm),
+                        const _CompleteBadge(),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.sm),
@@ -118,6 +120,43 @@ class _IconTile extends StatelessWidget {
         ),
       ),
       child: Icon(icon, size: 26, color: Colors.white),
+    );
+  }
+}
+
+/// Subtle pill confirming the demo is ready to explore.
+///
+/// Every showcase card is a complete, working demonstration by Phase 4, so
+/// each one carries this small checkmark status chip.
+class _CompleteBadge extends StatelessWidget {
+  const _CompleteBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: AppColors.accent.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.accent.withValues(alpha: 0.35)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check_circle, size: 13, color: AppColors.accent),
+          const SizedBox(width: 4),
+          Text(
+            'Complete',
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: AppColors.accent,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.2,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
