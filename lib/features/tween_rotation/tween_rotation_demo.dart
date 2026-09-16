@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_radius.dart';
+import '../../core/constants/app_spacing.dart';
 
 /// Interactive demo of an explicit rotation animation.
 ///
@@ -30,6 +31,9 @@ class _TweenRotationDemoState extends State<TweenRotationDemo>
   /// Maps controller progress onto an angle: 0 → 2π radians.
   late final Animation<double> _rotationAnimation;
 
+  /// Whether the dial keeps looping until the user stops it.
+  bool _isRepeating = true;
+
   @override
   void initState() {
     super.initState();
@@ -48,9 +52,95 @@ class _TweenRotationDemoState extends State<TweenRotationDemo>
     super.dispose();
   }
 
+  // ---------------------------------------------------------------------------
+  // Animation controls
+  // ---------------------------------------------------------------------------
+
+  String get _statusLabel {
+    if (_controller.isAnimating) {
+      return _controller.status == AnimationStatus.reverse
+          ? 'Reversing'
+          : 'Playing';
+    }
+    if (_controller.value == 0) return 'Idle';
+    if (_controller.value >= 1) return 'Completed';
+    return 'Paused';
+  }
+
+  Color get _statusColor {
+    switch (_statusLabel) {
+      case 'Playing':
+        return AppColors.accent;
+      case 'Reversing':
+        return AppColors.secondary;
+      case 'Paused':
+        return const Color(0xFFFFC24D);
+      case 'Completed':
+        return AppColors.primary;
+      default:
+        return AppColors.textSecondary;
+    }
+  }
+
+  void _play() {
+    setState(() {
+      if (_isRepeating) {
+        _controller.repeat();
+      } else {
+        if (_controller.value >= 1) _controller.reset();
+        _controller.forward();
+      }
+    });
+  }
+
+  void _pause() {
+    setState(() {
+      _controller.stop();
+    });
+  }
+
+  void _reverse() {
+    setState(() {
+      _controller.reverse();
+    });
+  }
+
+  void _reset() {
+    setState(() {
+      _controller.reset();
+    });
+  }
+
+  void _setRepeating(bool value) {
+    setState(() {
+      _isRepeating = value;
+      if (_isRepeating) {
+        _controller.repeat();
+      } else {
+        _controller.forward();
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Build
+  // ---------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
-    return _buildStage();
+    final ThemeData theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildStage(),
+        const SizedBox(height: AppSpacing.lg),
+        _buildStatusChip(theme),
+        const SizedBox(height: AppSpacing.lg),
+        _buildControls(theme),
+        const SizedBox(height: AppSpacing.lg),
+        _buildRepeatToggle(theme),
+      ],
+    );
   }
 
   /// The canvas holding the rotating target.
@@ -73,6 +163,111 @@ class _TweenRotationDemoState extends State<TweenRotationDemo>
           },
           child: const _MotionDial(),
         ),
+      ),
+    );
+  }
+
+  /// Live status indicator pill.
+  Widget _buildStatusChip(ThemeData theme) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (BuildContext context, Widget? child) {
+        return Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md,
+            vertical: AppSpacing.sm,
+          ),
+          decoration: BoxDecoration(
+            color: _statusColor.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(AppRadius.md),
+            border: Border.all(color: _statusColor.withValues(alpha: 0.35)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _statusColor,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Text(
+                _statusLabel,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: _statusColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// Play / Pause / Reverse / Reset buttons.
+  Widget _buildControls(ThemeData theme) {
+    return Wrap(
+      spacing: AppSpacing.sm,
+      runSpacing: AppSpacing.sm,
+      children: [
+        FilledButton.icon(
+          onPressed: _play,
+          icon: const Icon(Icons.play_arrow_rounded, size: 20),
+          label: const Text('Play'),
+        ),
+        OutlinedButton.icon(
+          onPressed: _pause,
+          icon: const Icon(Icons.pause_rounded, size: 20),
+          label: const Text('Pause'),
+        ),
+        OutlinedButton.icon(
+          onPressed: _reverse,
+          icon: const Icon(Icons.skip_previous_rounded, size: 20),
+          label: const Text('Reverse'),
+        ),
+        OutlinedButton.icon(
+          onPressed: _reset,
+          icon: const Icon(Icons.replay_rounded, size: 20),
+          label: const Text('Reset'),
+        ),
+      ],
+    );
+  }
+
+  /// Repeat-mode toggle row.
+  Widget _buildRepeatToggle(ThemeData theme) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppRadius.md),
+        border: Border.all(color: const Color(0xFF242947)),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.repeat_rounded,
+            size: 20,
+            color: AppColors.textSecondary,
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Text(
+              'Repeat continuously',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
+          Switch(value: _isRepeating, onChanged: _setRepeating),
+        ],
       ),
     );
   }
