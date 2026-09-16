@@ -30,8 +30,8 @@ and `flutter test`.
 |------|-----------|---------|--------|
 | 1 | `933c580` | `feat: implement AnimatedContainer transition demo` | ✅ pushed |
 | 2 | `ce6fb0f` | `docs: explain AnimatedContainer animation concepts` | ✅ pushed |
-| 3 | _pending_ | `feat: implement AnimationController and Tween rotation` | pending |
-| 4 | _pending_ | `feat: add interactive rotation animation controls` | pending |
+| 3 | `3f89220` | `feat: implement AnimationController and Tween rotation` | ✅ pushed |
+| 4 | `f4ea5d9` | `feat: add interactive rotation animation controls` | ✅ pushed |
 | 5 | _pending_ | `docs: explain explicit Flutter animation workflow` | pending |
 | 6 | _pending_ | `test: verify implicit and explicit animation demos` | pending |
 

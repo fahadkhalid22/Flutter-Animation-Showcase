@@ -55,6 +55,8 @@ abstract final class AppStrings {
   static const String whatItDemonstrates = 'What It Demonstrates';
   static const String example = 'Example';
   static const String howItWorks = 'How It Works';
+  static const String conceptualFlow = 'Conceptual Flow';
   static const String keyClasses = 'Key Classes';
+  static const String implicitVsExplicit = 'Implicit vs Explicit';
   static const String whenToUse = 'When To Use';
 }
