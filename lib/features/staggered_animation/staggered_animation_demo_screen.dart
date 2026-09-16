@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../shared/demo_lesson_view.dart';
-import '../../shared/demo_placeholder.dart';
 import '../../shared/demo_screen_shell.dart';
+import 'staggered_animation_demo.dart';
 
 /// Demo 04 — Staggered Sequence.
 ///
@@ -23,7 +23,7 @@ class StaggeredAnimationDemoScreen extends StatelessWidget {
             'A staggered animation shares one controller across several '
             'widgets, each starting on its own Interval. The result is the '
             'four items moving in sequence on a single timeline.',
-        demo: DemoPlaceholder(),
+        demo: StaggeredAnimationDemo(),
         howItWorks: [
           'Create one AnimationController that covers the whole sequence.',
           'Give each of the four items an Interval sliced out of that timeline '
