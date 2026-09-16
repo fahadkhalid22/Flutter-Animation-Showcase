@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../features/animated_container/animated_container_demo_screen.dart';
 import '../features/custom_route/custom_route_demo_screen.dart';
+import '../features/guide/animation_guide_screen.dart';
 import '../features/hero_animation/hero_animation_demo_screen.dart';
 import '../features/home/showcase_home_screen.dart';
 import '../features/staggered_animation/staggered_animation_demo_screen.dart';
@@ -30,6 +31,9 @@ abstract final class AppRoutes {
   /// Demo 05 — Custom Slide + Fade route via PageRouteBuilder.
   static const String customRoute = '/custom-route';
 
+  /// Reference guide comparing every animation technique in the showcase.
+  static const String guide = '/animation-guide';
+
   /// Resolves a route name to its screen widget.
   static Route<void> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
@@ -50,6 +54,8 @@ abstract final class AppRoutes {
         return const StaggeredAnimationDemoScreen();
       case customRoute:
         return const CustomRouteDemoScreen();
+      case guide:
+        return const AnimationGuideScreen();
       case home:
       default:
         return const ShowcaseHomeScreen();

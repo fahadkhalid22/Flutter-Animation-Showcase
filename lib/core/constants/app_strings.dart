@@ -18,6 +18,16 @@ abstract final class AppStrings {
   /// Badge shown in the dashboard header.
   static const String demosBadge = '5 Interactive Demos';
 
+  /// Title of the global animation comparison entry on the dashboard.
+  static const String guideTitle = 'Animation Techniques Guide';
+
+  /// Category label for the guide card / screen.
+  static const String guideCategory = 'Reference Guide';
+
+  /// One-line description shown on the dashboard guide card.
+  static const String guideDescription =
+      'Compare all five animation techniques and two families.';
+
   // ---------------------------------------------------------------------
   // Demo card copy (title / category / description)
   // ---------------------------------------------------------------------
