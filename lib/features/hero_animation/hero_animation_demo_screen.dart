@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../shared/demo_lesson_view.dart';
-import '../../shared/demo_placeholder.dart';
 import '../../shared/demo_screen_shell.dart';
+import 'hero_animation_demo.dart';
 
 /// Demo 02 — Hero Animation.
 ///
@@ -23,7 +23,7 @@ class HeroAnimationDemoScreen extends StatelessWidget {
             'Hero is a shared-element animation. Place a Hero widget with the '
             'same tag on both the source and destination route, and Flutter '
             'flies the element between the two screens during navigation.',
-        demo: DemoPlaceholder(),
+        demo: HeroAnimationDemo(),
         howItWorks: [
           'Wrap the element you want to share (an avatar, card or image) in a '
               'Hero on the source route.',
