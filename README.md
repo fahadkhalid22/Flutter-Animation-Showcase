@@ -67,7 +67,6 @@ lib/
 └── shared/                        # Shared screen layouts and descriptors
     ├── demo_descriptor.dart
     ├── demo_lesson_view.dart
-    ├── demo_placeholder.dart
     ├── demo_screen_shell.dart
     ├── motion_orb.dart            # Orbit-themed hero animation object
     └── route_transitions.dart     # Custom slide + fade route builder
@@ -114,10 +113,7 @@ and tablets.
 - ✅ `flutter test` passes
 - ✅ README, completion log and defect ledger exist
 
-> The remaining interactive animation areas (hero, staggered sequence and
-> custom route) use professional placeholders (`DemoPlaceholder`). The first
-> two animations — AnimatedContainer and Tween Rotation — are implemented in
-> Phase 2 and are live in their demo screens.
+> All five animation demos are live on the dashboard and reachable via named routes.
 
 ### Phase 2 — AnimatedContainer + Explicit AnimationController/Tween: ✅ Complete
 
