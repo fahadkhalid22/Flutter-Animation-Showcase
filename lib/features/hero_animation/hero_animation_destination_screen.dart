@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_radius.dart';
 import '../../core/constants/app_spacing.dart';
 import '../../shared/motion_orb.dart';
 import 'hero_tags.dart';
@@ -34,7 +35,8 @@ class HeroDestinationScreen extends StatelessWidget {
                     icon: const Icon(Icons.arrow_back),
                   ),
                 ),
-                const SizedBox(height: AppSpacing.xl * 2),
+                const SizedBox(height: AppSpacing.lg),
+                // Larger, transformed version of the source orb.
                 Center(
                   child: Hero(
                     tag: HeroTags.motionObject,
@@ -42,17 +44,75 @@ class HeroDestinationScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xxxl),
+                _ArrivalBadge(),
+                const SizedBox(height: AppSpacing.lg),
                 Text(
-                  'Welcome to the destination!',
+                  'You found the Motion Orb!',
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.titleLarge?.copyWith(
+                  style: theme.textTheme.headlineSmall?.copyWith(
                     color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.2,
                   ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  'The same orb flew here from the previous screen. Flutter '
+                  'found a matching Hero tag and animated it across the '
+                  'transition — position, size and shape all morphed together.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xxxl),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back_rounded, size: 20),
+                  label: const Text('Back to Source'),
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Small badge confirming the hero flight completed.
+class _ArrivalBadge extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.accent.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          border: Border.all(color: AppColors.accent.withValues(alpha: 0.35)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.flight_takeoff_rounded,
+              size: 16,
+              color: AppColors.accent,
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Text(
+              'Hero flight complete',
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: AppColors.accent,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
         ),
       ),
     );
