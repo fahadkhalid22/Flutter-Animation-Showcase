@@ -103,15 +103,119 @@ class _StaggeredAnimationDemoState extends State<StaggeredAnimationDemo>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildStage(),
+        const SizedBox(height: AppSpacing.lg),
+        _buildTimeline(),
+        const SizedBox(height: AppSpacing.lg),
+        _buildControls(),
         const SizedBox(height: AppSpacing.md),
         Text(
-          'The four items enter one after another off a single controller.',
+          'Play the sequence, then replay, reverse or reset it. The four '
+          'items always enter one after another off a single controller.',
           style: theme.textTheme.bodySmall?.copyWith(
             color: AppColors.textSecondary,
           ),
         ),
       ],
     );
+  }
+
+  /// Live timeline showing each item's interval slice and the moving
+  /// progress marker across 0% → 100%.
+  Widget _buildTimeline() {
+    final ThemeData theme = Theme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppRadius.md),
+        border: Border.all(color: const Color(0xFF242947)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.timeline,
+                size: 18,
+                color: AppColors.textSecondary,
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: Text(
+                  'One shared timeline — each slice is one item',
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: AppColors.textSecondary,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _TimelineBar(progress: _controller, intervals: _intervals),
+        ],
+      ),
+    );
+  }
+
+  /// Play Sequence / Replay / Reverse / Reset controls.
+  Widget _buildControls() {
+    return Wrap(
+      spacing: AppSpacing.sm,
+      runSpacing: AppSpacing.sm,
+      children: [
+        FilledButton.icon(
+          onPressed: _playSequence,
+          icon: const Icon(Icons.play_arrow_rounded, size: 20),
+          label: const Text('Play Sequence'),
+        ),
+        OutlinedButton.icon(
+          onPressed: _replay,
+          icon: const Icon(Icons.replay_rounded, size: 20),
+          label: const Text('Replay'),
+        ),
+        OutlinedButton.icon(
+          onPressed: _reverse,
+          icon: const Icon(Icons.fast_rewind_rounded, size: 20),
+          label: const Text('Reverse'),
+        ),
+        OutlinedButton.icon(
+          onPressed: _reset,
+          icon: const Icon(Icons.first_page_rounded, size: 20),
+          label: const Text('Reset'),
+        ),
+      ],
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Controls
+  // ---------------------------------------------------------------------------
+
+  /// Plays the sequence; if it already finished, starts it over from the top.
+  void _playSequence() {
+    if (_controller.isAnimating) return;
+    if (_controller.value >= 1) _controller.reset();
+    _controller.forward();
+  }
+
+  /// Restarts the whole sequence from the beginning.
+  void _replay() {
+    _controller
+      ..reset()
+      ..forward();
+  }
+
+  /// Plays the sequence backwards.
+  void _reverse() {
+    _controller.reverse();
+  }
+
+  /// Returns every item to the start of the timeline.
+  void _reset() {
+    _controller.reset();
   }
 
   /// The canvas on which the four staggered items play out.
@@ -204,6 +308,122 @@ class _StaggeredAnimationDemoState extends State<StaggeredAnimationDemo>
           ),
         );
     }
+  }
+}
+
+/// Horizontal 0%→100% timeline with the four interval slices and a moving
+/// progress marker driven by the shared controller.
+class _TimelineBar extends StatelessWidget {
+  const _TimelineBar({required this.progress, required this.intervals});
+
+  /// The shared controller, read every frame for the progress marker.
+  final Animation<double> progress;
+
+  /// The interval slices (begin, end) each item occupies.
+  final List<(double begin, double end)> intervals;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return AnimatedBuilder(
+      animation: progress,
+      builder: (BuildContext context, Widget? _) {
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double width = constraints.maxWidth;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 14,
+                  width: double.infinity,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      // Base track.
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        top: 5,
+                        child: Container(
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: AppColors.surfaceRaised,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                      ),
+                      // One slice per item.
+                      for (final (double begin, double end) in intervals)
+                        Positioned(
+                          left: width * begin,
+                          width: width * (end - begin),
+                          top: 5,
+                          child: Container(
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: AppColors.accent.withValues(alpha: 0.55),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                        ),
+                      // Moving progress marker.
+                      Positioned(
+                        left: progress.value * width - 6,
+                        top: 0,
+                        child: Container(
+                          width: 14,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.textPrimary,
+                            border: Border.all(
+                              color: AppColors.accent,
+                              width: 2,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.accent.withValues(alpha: 0.6),
+                                blurRadius: 8,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                Row(
+                  children: [
+                    Text(
+                      '0%',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '50%',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '100%',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 }
 
